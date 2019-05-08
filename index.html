@@ -182,57 +182,72 @@
           <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
             <p>
             	<STRONG> In the config</STRONG>	
+            	<br/>
             	services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             	<br/><br/>
             	<STRONG> In the web api config</STRONG>	
+            	<br/>
             	config.Formatters.Remove(config.Formatters.XmlFormatter);
+            	<br/>
             	config.Formatters.JsonFormatter.SupportedMediaTypes.Add(new MediaTypeHeaderValue("application/json"));
             	<br/><br/>
       			[HttpPost]
+    			<br/>
     			public ActionResult create(StudentViewModel student)
+    			<br/>
     			{
+    				<br/>
         			using (var client = new HttpClient())
         			{
+        				<br/>
             			client.BaseAddress = new Uri("http://localhost:64189/api/student");
-
+            			<br/>
             			//HTTP POST
+            			<br/>
             			var postTask = client.PostAsJsonAsync<StudentViewModel>("student", student);
+            			<br/>
             			postTask.Wait();
-
+            			<br/>
             			var result = postTask.Result;
+            			<br/>
             			if (result.IsSuccessStatusCode)
-            			{
-                			return RedirectToAction("Index");
-            			}
-        			}
-
+            			<br/>{
+                			<br/>return RedirectToAction("Index");
+            			<br/>}
+        			<br/>}
+        			<br/>
         			ModelState.AddModelError(string.Empty, "Server Error. Please contact administrator.");
-
+        			<br/>
         			return View(student);
-    			}
-			}
+    			<br/>}
+			<br/>}
 			<br/>
 			<br/>
 			[HttpGet]
+			<br/>
 			public ActionResult Index(){
+			<br/>
 			HttpClient client = new HttpClient();
+			<br/>
 			client.BaseAddress = new Uri("http://localhost:1234");
+			<br/>
 			client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+			<br/>
 			HttpResponseMessage response = client.GetAsync("api/product").Result;
-
+			<br/>
 			if(response.IsSuccessStatusCode)
-			{
-				ViewBag.result = response.Content.ReadAsAsync<IEnumerable<Product>>().Result;
-			}
-			else
-			{
-				ViewBag.result = "Error"
-			}
+			<br/>{
+				<br/>ViewBag.result = response.Content.ReadAsAsync<IEnumerable<Product>>().Result;
+			<br/>}
+			<br/>else
+			<br/>{
+				<br/>ViewBag.result = "Error"
+			<br/>}
 
 
-		}
+		<br/>}
             </p>
-          </div> https://docs.microsoft.com/en-us/aspnet/web-api/overview/advanced/sending-html-form-data-part-1
+          </div> 
           <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
             <div class="profile-wrapper wow fadeInRight" data-wow-delay="0.3s">
               <h3>Important Link</h3>
