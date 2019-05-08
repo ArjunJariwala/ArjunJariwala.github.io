@@ -175,6 +175,79 @@
     </section>
     <!-- About Section End -->
 
+	<!-- Interview section-->
+    <section id="interview" class="section-padding">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+            <p>
+            	<STRONG> In the config</STRONG>	
+            	services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            	<br/><br/>
+            	<STRONG> In the web api config</STRONG>	
+            	config.Formatters.Remove(config.Formatters.XmlFormatter);
+            	config.Formatters.JsonFormatter.SupportedMediaTypes.Add(new MediaTypeHeaderValue("application/json"));
+            	<br/><br/>
+      			[HttpPost]
+    			public ActionResult create(StudentViewModel student)
+    			{
+        			using (var client = new HttpClient())
+        			{
+            			client.BaseAddress = new Uri("http://localhost:64189/api/student");
+
+            			//HTTP POST
+            			var postTask = client.PostAsJsonAsync<StudentViewModel>("student", student);
+            			postTask.Wait();
+
+            			var result = postTask.Result;
+            			if (result.IsSuccessStatusCode)
+            			{
+                			return RedirectToAction("Index");
+            			}
+        			}
+
+        			ModelState.AddModelError(string.Empty, "Server Error. Please contact administrator.");
+
+        			return View(student);
+    			}
+			}
+			<br/>
+			<br/>
+			[HttpGet]
+			public ActionResult Index(){
+			HttpClient client = new HttpClient();
+			client.BaseAddress = new Uri("http://localhost:1234");
+			client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+			HttpResponseMessage response = client.GetAsync("api/product").Result;
+
+			if(response.IsSuccessStatusCode)
+			{
+				ViewBag.result = response.Content.ReadAsAsync<IEnumerable<Product>>().Result;
+			}
+			else
+			{
+				ViewBag.result = "Error"
+			}
+
+
+		}
+            </p>
+          </div> 
+          <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+            <div class="profile-wrapper wow fadeInRight" data-wow-delay="0.3s">
+              <h3>Important Link</h3>
+        	  <a href="http://www.compilemode.com/2016/09/display-json-data-from-controller-to-view-in-asp-net-mvc.html" > Read Json from Controller to View</a><br/><br/>
+              <a href="https://www.tutorialsteacher.com/webapi/consume-web-api-post-method-in-aspnet-mvc" > How to consume Post method of Web Api</a><br/><br/>
+              <a href="https://www.c-sharpcorner.com/UploadFile/8ef97c/most-asked-Asp-Net-mvc-interview-questions-and-answers/" > Mvc Interview Question</a><br/><br/>
+              <a href="https://www.c-sharpcorner.com/article/consuming-web-api-in-asp-net-mvc-part-two/" > Consuming Web Api Part two</a>
+             
+            </div>
+          </div>   
+        </div>
+      </div>
+    </section>
+    <!-- About Interview End -->
+
     <!-- Services Section Start -->
     <section id="services" class="services section-padding">
       <h2 class="section-title wow flipInX" data-wow-delay="0.4s">What I do</h2>
